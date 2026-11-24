@@ -1,0 +1,25 @@
+
+# Python virtual environment
+.venv/
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Jupyter notebook temporary files
+.ipynb_checkpoints/
+
+# MNIST downloaded dataset
+data/MNIST/raw/
+
+# Editor settings
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
