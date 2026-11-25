@@ -2,16 +2,16 @@
 
 ## 1. Project Overview
 
-This project develops an artificial intelligence system that recognises handwritten digits (0–9) using deep learning.
+This project develops a deep learning system that recognises handwritten digits (0–9) using artificial neural networks.
 
-The project uses the MNIST dataset to train and evaluate two neural network architectures:
+The project uses the MNIST dataset to train and evaluate two different neural network architectures:
 
-1. A traditional feedforward neural network.
+1. A Feedforward Neural Network (FFNN).
 2. A Convolutional Neural Network (CNN).
 
-Both models are also tested using ten handwritten digit images created manually.
+Both models are also tested using ten personally handwritten digit images to investigate how well they recognise handwriting outside the original MNIST dataset.
 
-The main objective is to understand how different neural network architectures learn image features and compare their performance on handwritten digit recognition.
+The main objective is to understand how different neural network architectures learn image features, evaluate their performance, and investigate how image preprocessing can improve classification accuracy.
 
 ## 2. Technologies Used
 
@@ -22,6 +22,7 @@ The main objective is to understand how different neural network architectures l
 - Matplotlib
 - Pillow (PIL)
 - Scikit-learn
+- Git and GitHub
 
 ## 3. Dataset
 
@@ -34,15 +35,15 @@ The MNIST dataset contains:
 - 10 different digit classes (0–9).
 - Grayscale images with dimensions of 28 × 28 pixels.
 
-In addition to the MNIST dataset, ten personally handwritten digit images were created and stored in:
+In addition to MNIST, ten personally handwritten digit images were created and stored in:
 
 `data/MNIST/my_digits/`
 
-These images were used to test how well the trained models recognise handwriting outside the original training dataset.
+These images were used to evaluate how well the trained models recognise handwriting outside the original training dataset.
 
 ## 4. Data Preprocessing and Augmentation
 
-The training images were prepared using PyTorch transforms.
+### Training Data
 
 Data augmentation was applied to the training dataset using:
 
@@ -50,23 +51,31 @@ Data augmentation was applied to the training dataset using:
 - Random translation of up to 10%.
 - Random scaling between 90% and 110%.
 
-The testing dataset was kept unchanged to ensure a consistent evaluation.
+The MNIST testing dataset was kept unchanged to provide consistent evaluation.
 
-For personal handwritten images, preprocessing included:
+### Personal Handwriting Preprocessing
+
+The personally handwritten images underwent the following preprocessing steps:
 
 - Conversion to grayscale.
 - Background inversion when necessary.
-- Cropping around the digit.
+- Cropping around the handwritten digit.
 - Resizing while preserving proportions.
 - Placement on a 28 × 28 black background.
+- Stroke thickening.
 - Centre-of-mass alignment.
+- Brightness enhancement using a factor of 3.0.
 - Conversion into a PyTorch tensor.
 
-These preprocessing steps help make personal handwriting images more compatible with the MNIST image format.
+During experimentation, the CNN initially achieved 80% accuracy on the ten personal handwriting images.
+
+Further investigation showed that the processed images had relatively low pixel intensities. Increasing their brightness significantly improved the CNN's predictions, resulting in 100% accuracy on the same ten images.
+
+This demonstrated the importance of image preprocessing in machine learning.
 
 ## 5. Model Architectures
 
-### Model 1: Feedforward Neural Network
+### Model 1: Feedforward Neural Network (FFNN)
 
 The first model uses a traditional feedforward neural network.
 
@@ -77,7 +86,7 @@ The first model uses a traditional feedforward neural network.
 - ReLU activation function.
 - Output layer: 128 to 10 neurons.
 
-The model produces scores for the ten possible digit classes.
+The output layer produces scores for the ten possible digit classes.
 
 ### Model 2: Convolutional Neural Network (CNN)
 
@@ -100,54 +109,69 @@ The CNN learns visual patterns such as edges, curves and shapes that help distin
 
 ## 6. Training Configuration
 
-Both models were trained using the following configuration:
+Both models use the following main training configuration:
 
 | Parameter | Value |
 |---|---|
 | Dataset | MNIST |
 | Batch size | 64 |
 | Learning rate | 0.001 |
-| Training epochs | 5 |
 | Optimizer | Adam |
 | Loss function | CrossEntropyLoss |
 | Device | CPU |
 
-## 7. Model Evaluation
+**Training epochs:**
 
-The models were evaluated using two sets of images:
+| Model | Epochs |
+|---|---:|
+| Feedforward Neural Network | 5 |
+| Convolutional Neural Network | 10 |
 
-1. The official MNIST test dataset.
+## 7. Model Evaluation and Results
+
+The models were evaluated using two datasets:
+
+1. The official MNIST test dataset containing 10,000 images.
 2. Ten personally handwritten digit images.
 
-The evaluation included the following metrics:
+Evaluation included accuracy, confusion matrices, precision, recall and F1-score.
 
-- Accuracy
-- Confusion matrix
-- Precision
-- Recall
-- F1-score
-
-### MNIST Test Results
+### 7.1 MNIST Test Results
 
 | Model | Test Accuracy |
 |---|---:|
-| Feedforward Neural Network | 96.97% |
-| Convolutional Neural Network (CNN) | 98.82% |
+| Feedforward Neural Network | 96.79% |
+| Convolutional Neural Network | 98.88% |
 
-The CNN achieved higher accuracy on the MNIST test dataset.
+The CNN achieved higher accuracy on the official MNIST test dataset.
 
-### Personal Handwriting Results
+### 7.2 Personal Handwriting Results
+
+After applying the same brightness-enhanced preprocessing to both models, the results were:
 
 | Model | Correct Predictions | Accuracy |
 |---|---:|---:|
 | Feedforward Neural Network | 9/10 | 90% |
 | CNN | 10/10 | 100% |
 
-The original feedforward neural network incorrectly classified the handwritten digit 3 as 5.
+The feedforward neural network incorrectly classified the handwritten digit 3 as 5.
 
 The CNN correctly classified all ten handwritten test images.
 
 **Important:** The personal handwriting evaluation contains only ten images. The 100% accuracy applies only to these ten samples and does not establish general performance on unseen handwriting.
+
+### 7.3 Preprocessing Experiment
+
+One of the important experiments involved improving the brightness of the processed handwritten images.
+
+| CNN Experiment | Correct Predictions | Accuracy |
+|---|---:|---:|
+| Before brightness enhancement | 8/10 | 80% |
+| After brightness enhancement | 10/10 | 100% |
+
+The brightness enhancement factor of 3.0 helped the CNN recognise handwritten digits that it previously misclassified, particularly digits 4 and 8.
+
+This experiment demonstrated that improving input data quality can significantly affect model predictions without changing the trained model architecture or weights.
 
 ## 8. Visual Model Comparison
 
@@ -155,7 +179,7 @@ The following image shows the predictions made by both models on the ten persona
 
 ![Original Neural Network vs CNN](results/model_comparison.png)
 
-The comparison demonstrates the improvement achieved by the CNN in this experiment.
+The comparison shows that the CNN correctly classified all ten handwritten images, while the original feedforward neural network made one incorrect prediction.
 
 ## 9. Project Structure
 
@@ -202,8 +226,6 @@ The comparison demonstrates the improvement achieved by the CNN in this experime
 
 ## 10. How to Run the Project
 
-Follow these steps to set up and run the project on your computer.
-
 ### Step 1: Clone the repository
 
 ```bash
@@ -236,7 +258,7 @@ For Windows PowerShell:
 pip install torch torchvision numpy matplotlib pillow scikit-learn
 ```
 
-### Step 6: Download the MNIST dataset if necessary
+### Step 6: Download the MNIST dataset
 
 ```bash
 python src/download_data.py
@@ -248,7 +270,7 @@ python src/download_data.py
 python src/train.py
 ```
 
-### Step 8: Train the Convolutional Neural Network (CNN)
+### Step 8: Train the CNN
 
 ```bash
 python src/train_cnn.py
@@ -274,7 +296,7 @@ python src/predict_cnn.py
 python src/compare_models.py
 ```
 
-The comparison script generates a visual report showing the predictions made by both models.
+The comparison script evaluates both models on the ten personal handwriting images and generates a visual report in the `results/` directory.
 
 ## 11. What I Learned
 
@@ -284,28 +306,34 @@ Through this project, I gained practical experience in:
 - Preparing images for machine learning.
 - Applying data augmentation.
 - Building neural networks using PyTorch.
+- Understanding feedforward neural networks and CNNs.
 - Training and evaluating deep learning models.
-- Understanding convolutional neural networks.
 - Using confusion matrices and classification reports.
 - Comparing different neural network architectures.
 - Testing models using personally created images.
-- Improving image preprocessing for prediction.
-- Using Git and GitHub to manage and publish a machine learning project.
+- Investigating incorrect predictions.
+- Improving image preprocessing to increase prediction accuracy.
+- Understanding the importance of input data quality.
+- Using Git and GitHub to manage and publish machine learning projects.
 
 ## 12. Conclusion
 
-This project demonstrates the development and evaluation of two deep learning models for handwritten digit recognition.
+This project demonstrates the development, training and evaluation of two deep learning models for handwritten digit recognition.
 
-The CNN achieved better results than the original feedforward neural network on both the MNIST test dataset and the ten personal handwritten samples used in this experiment.
+The CNN achieved 98.88% accuracy on the official MNIST test dataset, compared with 96.79% for the feedforward neural network.
 
-The project provided practical experience in the machine learning workflow, from data preparation and model development to training, evaluation, visualisation and version control.
+On the ten personally handwritten images, the CNN achieved 100% accuracy, while the feedforward neural network achieved 90% after applying the same preprocessing.
 
-It also demonstrated how different neural network architectures can affect the performance of an image classification system.
+An important finding was that brightness enhancement significantly improved the CNN's recognition of personal handwriting without requiring changes to the trained model.
+
+Overall, this project provided practical experience in the machine learning workflow, from data preparation and model development to training, evaluation, experimentation, visualisation and version control.
+
+It also demonstrated how neural network architecture and input preprocessing can influence the performance of an image classification system.
 
 ---
 
 **Project:** AI Engineering Portfolio — Project 01  
 **Topic:** Handwritten Digit Recognition  
 **Framework:** PyTorch  
-**Language:** Python  
-**Repository:** [GitHub - Handwritten Digit Recognition](https://github.com/uchecyril500/Handwritten-digit-recognition)
+**Programming Language:** Python  
+**Repository:** [GitHub – Handwritten Digit Recognition](https://github.com/uchecyril500/Handwritten-digit-recognition)
