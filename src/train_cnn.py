@@ -32,7 +32,7 @@ MODEL_DIR = BASE_DIR / "models"
 
 BATCH_SIZE = 64
 LEARNING_RATE = 0.001
-EPOCHS = 5
+EPOCHS = 10
 
 DEVICE = torch.device("cpu")
 

@@ -172,7 +172,36 @@ def predict_digit(image_path):
         fillcolor=0
     )
 
-    # Convert image into a PyTorch tensor
+    # ==========================================
+    # NEW DIAGNOSTIC CHECK
+    # ==========================================
+
+    # ==========================================
+# EXPERIMENT: INCREASE IMAGE CONTRAST
+# ==========================================
+
+    from PIL import ImageEnhance
+
+    # Increase brightness of the processed digit
+    enhancer = ImageEnhance.Brightness(canvas)
+
+    canvas = enhancer.enhance(3.0)
+
+    # Keep pixel values within the valid grayscale range
+    canvas = canvas.point(lambda p: min(255, p))
+
+    # Display diagnostic measurements
+    print("\nProcessed image pixel range:", canvas.getextrema())
+
+    average_intensity = sum(canvas.getdata()) / (28 * 28)
+
+    print("Average pixel intensity:", round(average_intensity, 2))
+    
+    
+    # ==========================================
+    # CONVERT IMAGE INTO A PYTORCH TENSOR
+    # ==========================================
+
     image_tensor = torch.frombuffer(
 
         bytearray(canvas.tobytes()),
@@ -215,7 +244,10 @@ def predict_digit(image_path):
 
 
     # Display processed image
-    plt.imshow(canvas, cmap="gray")
+
+    plt.figure(figsize=(4, 4))
+
+    plt.imshow(canvas, cmap="gray", vmin=0, vmax=255)
 
     plt.title(f"CNN Prediction: {predicted_digit}")
 

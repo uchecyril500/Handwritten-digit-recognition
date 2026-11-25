@@ -15,7 +15,13 @@ import torch.nn as nn
 
 import matplotlib.pyplot as plt
 
-from PIL import Image, ImageOps, ImageStat, ImageFilter
+from PIL import (
+    Image,
+    ImageOps,
+    ImageStat,
+    ImageFilter,
+    ImageEnhance
+)
 
 
 # 2. DEFINE PROJECT PATHS
@@ -213,7 +219,21 @@ def preprocess_image(image_path):
         fillcolor=0
     )
 
-    # Convert to PyTorch tensor
+    # ==========================================
+    # INCREASE IMAGE BRIGHTNESS
+    # ==========================================
+
+    enhancer = ImageEnhance.Brightness(canvas)
+
+    canvas = enhancer.enhance(3.0)
+
+    # Keep pixel values within valid grayscale range
+    canvas = canvas.point(lambda p: min(255, p))
+
+    # ==========================================
+    # CONVERT TO PYTORCH TENSOR
+    # ==========================================
+
     image_tensor = torch.frombuffer(
 
         bytearray(canvas.tobytes()),
@@ -317,7 +337,7 @@ for i, result in enumerate(results):
 
     ax = axes.flat[i]
 
-    ax.imshow(result["image"], cmap="gray")
+    ax.imshow(result["image"], cmap="gray", vmin=0, vmax=255)
 
     actual = result["actual"]
 
