@@ -222,6 +222,9 @@ The comparison shows that the CNN correctly classified all ten handwritten image
 │
 ├── .gitignore
 └── README.md
+└── requirements.txt
+
+
 ```
 
 ## 10. How to Run the Project
@@ -252,11 +255,15 @@ For Windows PowerShell:
 .\.venv\Scripts\Activate.ps1
 ```
 
-### Step 5: Install the required libraries
+### Step 5: Install the required libraries**
+
+Install all project dependencies using the `requirements.txt` file:
 
 ```bash
-pip install torch torchvision numpy matplotlib pillow scikit-learn
+pip install -r requirements.txt
 ```
+
+
 
 ### Step 6: Download the MNIST dataset
 

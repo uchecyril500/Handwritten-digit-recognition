@@ -12,7 +12,14 @@ import torch
 import torch.nn as nn
 
 from pathlib import Path
-from PIL import Image, ImageFilter
+
+from PIL import (
+    Image,
+    ImageFilter,
+    ImageOps,
+    ImageStat,
+    ImageEnhance
+)
 
 import matplotlib.pyplot as plt
 
@@ -103,8 +110,6 @@ print("Trained CNN loaded successfully!")
 
 def predict_digit(image_path):
 
-    from PIL import ImageOps, ImageStat
-
     # Open image and convert to grayscale
     image = Image.open(image_path).convert("L")
 
@@ -172,36 +177,15 @@ def predict_digit(image_path):
         fillcolor=0
     )
 
-    # ==========================================
-    # NEW DIAGNOSTIC CHECK
-    # ==========================================
-
-    # ==========================================
-# EXPERIMENT: INCREASE IMAGE CONTRAST
-# ==========================================
-
-    from PIL import ImageEnhance
-
-    # Increase brightness of the processed digit
+    # Increase image brightness
     enhancer = ImageEnhance.Brightness(canvas)
 
     canvas = enhancer.enhance(3.0)
 
-    # Keep pixel values within the valid grayscale range
+    # Keep pixel values within valid grayscale range
     canvas = canvas.point(lambda p: min(255, p))
 
-    # Display diagnostic measurements
-    print("\nProcessed image pixel range:", canvas.getextrema())
-
-    average_intensity = sum(canvas.getdata()) / (28 * 28)
-
-    print("Average pixel intensity:", round(average_intensity, 2))
-    
-    
-    # ==========================================
-    # CONVERT IMAGE INTO A PYTORCH TENSOR
-    # ==========================================
-
+    # Convert image into a PyTorch tensor
     image_tensor = torch.frombuffer(
 
         bytearray(canvas.tobytes()),
@@ -244,7 +228,6 @@ def predict_digit(image_path):
 
 
     # Display processed image
-
     plt.figure(figsize=(4, 4))
 
     plt.imshow(canvas, cmap="gray", vmin=0, vmax=255)
@@ -258,13 +241,28 @@ def predict_digit(image_path):
     return predicted_digit
 
 
-# 7. TEST ALL TEN HANDWRITTEN DIGITS
+# 7. CHECK THAT PERSONAL HANDWRITING IMAGES EXIST
+
+if not DIGIT_DIR.exists():
+
+    raise FileNotFoundError(
+        f"Handwritten digit directory not found: {DIGIT_DIR}"
+    )
+
+
+# 8. TEST ALL TEN HANDWRITTEN DIGITS
 
 results = []
 
 for actual_digit in range(10):
 
     IMAGE_PATH = DIGIT_DIR / f"test_{actual_digit}.png"
+
+    if not IMAGE_PATH.exists():
+
+        raise FileNotFoundError(
+            f"Handwritten image not found: {IMAGE_PATH}"
+        )
 
     print("\n----------------------------")
 
@@ -275,21 +273,19 @@ for actual_digit in range(10):
     results.append((actual_digit, predicted_digit))
 
 
-# 8. CALCULATE CNN ACCURACY ON CUSTOM IMAGES
+# 9. CALCULATE CNN ACCURACY ON CUSTOM IMAGES
 
-correct = 0
+correct = sum(
 
-for actual, predicted in results:
+    actual == predicted
 
-    if actual == predicted:
-
-        correct += 1
-
+    for actual, predicted in results
+)
 
 accuracy = (correct / len(results)) * 100
 
 
-# 9. DISPLAY FINAL EVALUATION REPORT
+# 10. DISPLAY FINAL EVALUATION REPORT
 
 print("\n============================")
 
