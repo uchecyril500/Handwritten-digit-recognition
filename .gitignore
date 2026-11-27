@@ -13,6 +13,7 @@ __pycache__/
 
 # MNIST downloaded dataset
 data/MNIST/raw/
+data/MNIST/processed/
 
 # Editor settings
 .vscode/

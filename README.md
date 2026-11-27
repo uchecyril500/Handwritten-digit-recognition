@@ -1,113 +1,138 @@
-# Handwritten Digit Recognition Using Neural Networks and CNNs
+# ✍️ Handwritten Digit Recognition Using Deep Learning
+
+An AI Engineering portfolio project that uses **PyTorch, Feedforward Neural Networks (FFNN), and Convolutional Neural Networks (CNN)** to recognise handwritten digits from 0 to 9.
+
+The project includes model training, evaluation, image preprocessing, model comparison, and an interactive web application built with Streamlit.
+
+**Built and Designed by [@uchecyril](https://github.com/uchecyril500)**
+
+---
 
 ## 1. Project Overview
 
-This project develops a deep learning system that recognises handwritten digits (0–9) using artificial neural networks.
+The objective of this project is to develop a deep learning system capable of recognising handwritten digits (0–9).
 
-The project uses the MNIST dataset to train and evaluate two different neural network architectures:
+Two neural network architectures were developed and compared:
 
-1. A Feedforward Neural Network (FFNN).
-2. A Convolutional Neural Network (CNN).
+1. **Feedforward Neural Network (FFNN)**
+2. **Convolutional Neural Network (CNN)**
 
-Both models are also tested using ten personally handwritten digit images to investigate how well they recognise handwriting outside the original MNIST dataset.
+Both models were trained and evaluated using the MNIST handwritten digit dataset.
 
-The main objective is to understand how different neural network architectures learn image features, evaluate their performance, and investigate how image preprocessing can improve classification accuracy.
+In addition, personally handwritten digit images were used to investigate how well the trained models perform on handwriting outside the original dataset.
 
-## 2. Technologies Used
+The project also includes an interactive Streamlit application where users can draw a digit and receive a prediction from the trained CNN.
 
-- Python
-- PyTorch
-- Torchvision
-- NumPy
-- Matplotlib
-- Pillow (PIL)
-- Scikit-learn
-- Git and GitHub
+The main focus was to understand the machine learning workflow, from data preparation and model development to training, evaluation, experimentation, and deployment of an interactive application.
+
+## 2. Technologies and Tools
+
+| Technology | Purpose |
+|---|---|
+| Python | Main programming language |
+| PyTorch | Neural network development and training |
+| Torchvision | MNIST dataset and image transformations |
+| NumPy | Numerical operations |
+| Matplotlib | Data visualisation |
+| Pillow (PIL) | Image processing |
+| Scikit-learn | Model evaluation and classification metrics |
+| Streamlit | Interactive web application |
+| Streamlit Drawable Canvas | Handwriting input |
+| Git and GitHub | Version control and project hosting |
+| VS Code | Development environment |
 
 ## 3. Dataset
 
-This project uses the MNIST handwritten digit dataset.
+This project uses the **MNIST handwritten digit dataset**.
 
-The MNIST dataset contains:
+The dataset contains:
 
 - 60,000 training images.
 - 10,000 testing images.
-- 10 different digit classes (0–9).
-- Grayscale images with dimensions of 28 × 28 pixels.
+- 10 digit classes (0–9).
+- Grayscale images.
+- Image dimensions of 28 × 28 pixels.
 
 In addition to MNIST, ten personally handwritten digit images were created and stored in:
 
 `data/MNIST/my_digits/`
 
-These images were used to evaluate how well the trained models recognise handwriting outside the original training dataset.
+These images were used to evaluate the models on handwriting outside the original MNIST dataset.
 
 ## 4. Data Preprocessing and Augmentation
 
-### Training Data
+### 4.1 Training Data Augmentation
 
-Data augmentation was applied to the training dataset using:
+The following transformations were applied to the training images:
 
 - Random rotation of up to 10 degrees.
 - Random translation of up to 10%.
 - Random scaling between 90% and 110%.
+- Conversion into PyTorch tensors.
 
-The MNIST testing dataset was kept unchanged to provide consistent evaluation.
+The official MNIST testing dataset was kept unchanged for evaluation.
 
-### Personal Handwriting Preprocessing
+### 4.2 Personal Handwriting Preprocessing
 
-The personally handwritten images underwent the following preprocessing steps:
+Additional preprocessing was implemented to prepare handwritten images for CNN prediction.
 
-- Conversion to grayscale.
-- Background inversion when necessary.
-- Cropping around the handwritten digit.
-- Resizing while preserving proportions.
-- Placement on a 28 × 28 black background.
-- Stroke thickening.
-- Centre-of-mass alignment.
-- Brightness enhancement using a factor of 3.0.
-- Conversion into a PyTorch tensor.
+The steps include:
+
+1. Conversion to grayscale.
+2. Background inversion when necessary.
+3. Cropping around the handwritten digit.
+4. Resizing while preserving proportions.
+5. Placement on a 28 × 28 black canvas.
+6. Stroke thickening.
+7. Centre-of-mass alignment.
+8. Brightness enhancement using a factor of 3.0.
+9. Conversion into a PyTorch tensor.
+
+### 4.3 Preprocessing Experiment
 
 During experimentation, the CNN initially achieved 80% accuracy on the ten personal handwriting images.
 
-Further investigation showed that the processed images had relatively low pixel intensities. Increasing their brightness significantly improved the CNN's predictions, resulting in 100% accuracy on the same ten images.
+Further investigation showed that the processed images had relatively low pixel intensities.
 
-This demonstrated the importance of image preprocessing in machine learning.
+Applying brightness enhancement significantly improved the predictions, resulting in 100% accuracy on the same ten images.
+
+This experiment demonstrated that image preprocessing can have a significant effect on machine learning predictions without changing the trained model architecture or weights.
 
 ## 5. Model Architectures
 
-### Model 1: Feedforward Neural Network (FFNN)
+### 5.1 Feedforward Neural Network (FFNN)
 
 The first model uses a traditional feedforward neural network.
 
 **Architecture:**
 
-- Flatten layer: converts the 28 × 28 image into 784 input values.
-- Fully connected layer: 784 to 128 neurons.
-- ReLU activation function.
-- Output layer: 128 to 10 neurons.
+- Flatten layer: 784 input features.
+- Fully connected layer: 784 → 128 neurons.
+- ReLU activation.
+- Output layer: 128 → 10 neurons.
 
 The output layer produces scores for the ten possible digit classes.
 
-### Model 2: Convolutional Neural Network (CNN)
+### 5.2 Convolutional Neural Network (CNN)
 
-The second model uses convolutional layers to learn visual features from images.
+The second model uses convolutional layers to learn visual features from handwritten images.
 
 **Architecture:**
 
-- First convolutional layer: 1 input channel and 16 output channels.
+- Convolutional layer: 1 → 16 channels.
 - ReLU activation.
 - Max pooling.
-- Second convolutional layer: 16 input channels and 32 output channels.
+- Convolutional layer: 16 → 32 channels.
 - ReLU activation.
 - Max pooling.
 - Flatten layer.
-- Fully connected layer: 1568 to 128 neurons.
+- Fully connected layer: 1568 → 128 neurons.
 - ReLU activation.
-- Output layer: 128 to 10 neurons.
+- Output layer: 128 → 10 neurons.
 
-The CNN learns visual patterns such as edges, curves and shapes that help distinguish handwritten digits.
+The CNN learns visual patterns such as edges, curves, and shapes that help distinguish handwritten digits.
 
-## 6. Training Configuration
+## 6. Model Training Configuration
 
 Both models use the following main training configuration:
 
@@ -127,14 +152,16 @@ Both models use the following main training configuration:
 | Feedforward Neural Network | 5 |
 | Convolutional Neural Network | 10 |
 
+The trained model weights are saved in the `models/` directory.
+
 ## 7. Model Evaluation and Results
 
-The models were evaluated using two datasets:
+The models were evaluated using:
 
 1. The official MNIST test dataset containing 10,000 images.
 2. Ten personally handwritten digit images.
 
-Evaluation included accuracy, confusion matrices, precision, recall and F1-score.
+Evaluation included accuracy, confusion matrices, precision, recall, and F1-score.
 
 ### 7.1 MNIST Test Results
 
@@ -143,45 +170,77 @@ Evaluation included accuracy, confusion matrices, precision, recall and F1-score
 | Feedforward Neural Network | 96.79% |
 | Convolutional Neural Network | 98.88% |
 
-The CNN achieved higher accuracy on the official MNIST test dataset.
+The CNN achieved higher accuracy than the FFNN on the official MNIST test dataset.
 
 ### 7.2 Personal Handwriting Results
 
-After applying the same brightness-enhanced preprocessing to both models, the results were:
+After applying the same brightness-enhanced preprocessing to both models:
 
 | Model | Correct Predictions | Accuracy |
 |---|---:|---:|
 | Feedforward Neural Network | 9/10 | 90% |
 | CNN | 10/10 | 100% |
 
-The feedforward neural network incorrectly classified the handwritten digit 3 as 5.
-
-The CNN correctly classified all ten handwritten test images.
+The FFNN incorrectly classified one handwritten digit, while the CNN correctly classified all ten images.
 
 **Important:** The personal handwriting evaluation contains only ten images. The 100% accuracy applies only to these ten samples and does not establish general performance on unseen handwriting.
 
-### 7.3 Preprocessing Experiment
+### 7.3 Interactive Application Testing
 
-One of the important experiments involved improving the brightness of the processed handwritten images.
+The Streamlit application was also tested manually by drawing digits from 0 to 9 in different handwriting styles and sizes.
 
-| CNN Experiment | Correct Predictions | Accuracy |
-|---|---:|---:|
-| Before brightness enhancement | 8/10 | 80% |
-| After brightness enhancement | 10/10 | 100% |
+In one recorded round of testing, all 11 prediction attempts were correct.
 
-The brightness enhancement factor of 3.0 helped the CNN recognise handwritten digits that it previously misclassified, particularly digits 4 and 8.
-
-This experiment demonstrated that improving input data quality can significantly affect model predictions without changing the trained model architecture or weights.
+These manual demonstrations show that the application can recognise a range of user-drawn digits. They are separate from the formal MNIST evaluation and the ten-image personal handwriting experiment.
 
 ## 8. Visual Model Comparison
 
-The following image shows the predictions made by both models on the ten personally handwritten digits.
+The following image compares the predictions made by the FFNN and CNN on the ten personally handwritten digit images.
 
-![Original Neural Network vs CNN](results/model_comparison.png)
+![FFNN vs CNN Model Comparison](results/model_comparison.png)
 
-The comparison shows that the CNN correctly classified all ten handwritten images, while the original feedforward neural network made one incorrect prediction.
+The comparison demonstrates the improved performance of the CNN on the personal handwriting samples.
 
-## 9. Project Structure
+## 9. Interactive Streamlit Application
+
+A web-based application was developed using Streamlit to allow users to interact with the trained CNN model.
+
+### Application Features
+
+- Draw handwritten digits using a mouse or touchscreen.
+- Predict digits between 0 and 9.
+- Display the predicted digit.
+- Display the top three prediction probabilities.
+- Show confidence scores for the predictions.
+- Display the processed image used by the CNN.
+- Clear the drawing canvas and try another digit.
+- Display an error message when the user attempts to predict an empty canvas.
+
+### Application Workflow
+
+1. The user draws a digit on the canvas.
+2. The application retrieves the drawing.
+3. The CNN prediction engine preprocesses the image.
+4. The processed image is converted into a PyTorch tensor.
+5. The trained CNN generates prediction scores.
+6. Softmax converts the scores into probabilities.
+7. The application displays the predicted digit and top three results.
+
+The application uses the previously trained CNN model. It does not retrain the model every time a user makes a prediction.
+
+### Launch the Application
+
+Run the application using:
+
+```bash
+python -m streamlit run app.py
+```
+
+The application will open in your web browser.
+
+Draw a digit, click **Predict Digit**, and view the CNN prediction.
+
+## 10. Project Structure
 
 ```text
 01-Handwritten-Digit-Recognition/
@@ -200,7 +259,8 @@ The comparison shows that the CNN correctly classified all ten handwritten image
 │       │   ├── test_8.png
 │       │   └── test_9.png
 │       │
-│       └── raw/
+│       ├── raw/
+│       └── processed/
 │
 ├── models/
 │   ├── digit_recognition.pth
@@ -218,16 +278,22 @@ The comparison shows that the CNN correctly classified all ten handwritten image
 │   ├── train_cnn.py
 │   ├── predict.py
 │   ├── predict_cnn.py
+│   ├── cnn_predictor.py
 │   └── compare_models.py
 │
+├── app.py
+├── requirements.txt
 ├── .gitignore
 └── README.md
-└── requirements.txt
-
-
 ```
 
-## 10. How to Run the Project
+## 11. How to Install and Run the Project
+
+### Prerequisites
+
+- Python installed.
+- Git installed.
+- Internet connection for downloading the MNIST dataset and installing dependencies.
 
 ### Step 1: Clone the repository
 
@@ -255,15 +321,11 @@ For Windows PowerShell:
 .\.venv\Scripts\Activate.ps1
 ```
 
-### Step 5: Install the required libraries**
-
-Install all project dependencies using the `requirements.txt` file:
+### Step 5: Install the required dependencies
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
-
-
 
 ### Step 6: Download the MNIST dataset
 
@@ -271,13 +333,13 @@ pip install -r requirements.txt
 python src/download_data.py
 ```
 
-### Step 7: Train the original feedforward neural network
+### Step 7: Train the Feedforward Neural Network
 
 ```bash
 python src/train.py
 ```
 
-### Step 8: Train the CNN
+### Step 8: Train the Convolutional Neural Network
 
 ```bash
 python src/train_cnn.py
@@ -285,7 +347,7 @@ python src/train_cnn.py
 
 ### Step 9: Run digit predictions
 
-To test the original neural network:
+To test the FFNN:
 
 ```bash
 python src/predict.py
@@ -303,9 +365,19 @@ python src/predict_cnn.py
 python src/compare_models.py
 ```
 
-The comparison script evaluates both models on the ten personal handwriting images and generates a visual report in the `results/` directory.
+The comparison script evaluates both models on the personal handwriting images and generates a visual report in the `results/` directory.
 
-## 11. What I Learned
+### Step 11: Launch the interactive web application
+
+```bash
+python -m streamlit run app.py
+```
+
+The application will open in your default web browser.
+
+**Note:** The trained model files are included in the project repository. If they are unavailable in a fresh checkout, run the relevant training scripts to generate them.
+
+## 12. What I Learned
 
 Through this project, I gained practical experience in:
 
@@ -317,30 +389,43 @@ Through this project, I gained practical experience in:
 - Training and evaluating deep learning models.
 - Using confusion matrices and classification reports.
 - Comparing different neural network architectures.
-- Testing models using personally created images.
+- Testing models with personally created images.
 - Investigating incorrect predictions.
-- Improving image preprocessing to increase prediction accuracy.
+- Improving image preprocessing.
 - Understanding the importance of input data quality.
-- Using Git and GitHub to manage and publish machine learning projects.
+- Building an interactive machine learning application with Streamlit.
+- Integrating a trained model into a user-facing application.
+- Using Git and GitHub for version control.
 
-## 12. Conclusion
+## 13. Conclusion
 
-This project demonstrates the development, training and evaluation of two deep learning models for handwritten digit recognition.
+This project demonstrates the development, training, evaluation, and practical application of two deep learning models for handwritten digit recognition.
 
-The CNN achieved 98.88% accuracy on the official MNIST test dataset, compared with 96.79% for the feedforward neural network.
+The CNN achieved 98.88% accuracy on the official MNIST test dataset, compared with 96.79% for the FFNN.
 
-On the ten personally handwritten images, the CNN achieved 100% accuracy, while the feedforward neural network achieved 90% after applying the same preprocessing.
+On the ten personally handwritten images, the CNN achieved 100% accuracy, while the FFNN achieved 90% using the same preprocessing.
 
-An important finding was that brightness enhancement significantly improved the CNN's recognition of personal handwriting without requiring changes to the trained model.
+An important finding was that brightness enhancement significantly improved the CNN's recognition of personal handwriting without requiring changes to the trained model architecture or weights.
 
-Overall, this project provided practical experience in the machine learning workflow, from data preparation and model development to training, evaluation, experimentation, visualisation and version control.
+The project also demonstrates how a trained deep learning model can be integrated into an interactive application that allows users to test its predictions.
 
-It also demonstrated how neural network architecture and input preprocessing can influence the performance of an image classification system.
+Overall, this project provided practical experience across the machine learning workflow, from data preparation and model development to experimentation, evaluation, visualisation, application development, and version control.
 
 ---
 
-**Project:** AI Engineering Portfolio — Project 01  
-**Topic:** Handwritten Digit Recognition  
-**Framework:** PyTorch  
-**Programming Language:** Python  
-**Repository:** [GitHub – Handwritten Digit Recognition](https://github.com/uchecyril500/Handwritten-digit-recognition)
+## Project Information
+
+| Field | Details |
+|---|---|
+| Portfolio | AI Engineering Portfolio |
+| Project | Project 01 |
+| Topic | Handwritten Digit Recognition |
+| Programming Language | Python |
+| Deep Learning Framework | PyTorch |
+| Application Framework | Streamlit |
+| Models | FFNN and CNN |
+| Dataset | MNIST |
+| Developer | @uchecyril |
+| GitHub | [Handwritten Digit Recognition](https://github.com/uchecyril500/Handwritten-digit-recognition) |
+
+**Built and Designed by [@uchecyril](https://github.com/uchecyril500)**

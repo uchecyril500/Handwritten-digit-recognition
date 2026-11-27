@@ -5,3 +5,5 @@ numpy
 matplotlib
 Pillow
 scikit-learn
+streamlit
+streamlit-drawable-canvas
