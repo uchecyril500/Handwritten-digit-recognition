@@ -6,7 +6,7 @@ The project includes model training, evaluation, image preprocessing, model comp
 
 <p align="center">
 
-  **[🚀 TRY THE LIVE APPLICATION](https://uchecyril500-handwritten-digit-recognition-app-sjygo.streamlit.app/)**
+**[🚀 TRY THE LIVE APPLICATION](https://handwritten-digit-recognition-3d1n.onrender.com)**
 
 </p>
 
@@ -45,7 +45,7 @@ The main focus was to understand the machine learning workflow, from data prepar
 | Streamlit | Interactive web application |
 | Streamlit Drawable Canvas | Handwriting input |
 | Git and GitHub | Version control and project hosting |
-| Streamlit Community Cloud | Application deployment |
+| Render | Application deployment and hosting |
 | VS Code | Development environment |
 
 ## 3. Dataset
@@ -196,7 +196,7 @@ The FFNN incorrectly classified one handwritten digit, while the CNN correctly c
 
 ### 7.3 Interactive Application Testing
 
-The Streamlit application was tested manually using different handwritten digits, sizes, and drawing styles.
+The deployed application was tested manually using different handwritten digits, sizes, and drawing styles.
 
 Testing included:
 
@@ -225,9 +225,9 @@ A web-based application was developed using Streamlit to allow users to interact
 
 ### Try the Live Application
 
-**[🚀 Open Handwritten Digit Recognition](https://uchecyril500-handwritten-digit-recognition-app-sjygo.streamlit.app/)**
+**[🚀 Open Handwritten Digit Recognition](https://handwritten-digit-recognition-3d1n.onrender.com)**
 
-The application is publicly accessible through Streamlit Community Cloud.
+The application is publicly accessible through Render.
 
 ### Application Features
 
@@ -254,20 +254,22 @@ The application uses the previously trained CNN model. It does not retrain the m
 
 ### Application Deployment
 
-The application was deployed using **Streamlit Community Cloud**, connected directly to the GitHub repository.
+The application was deployed using **Render**, connected directly to the GitHub repository.
 
 | Deployment Detail | Value |
 |---|---|
-| Hosting platform | Streamlit Community Cloud |
+| Hosting platform | Render |
 | Source repository | GitHub |
 | Branch | main |
 | Main application file | app.py |
+| Python version | 3.13 |
 | Framework | Streamlit |
 | Model | Trained CNN |
-| Deployment status | Successfully deployed |
+| Deployment status | Successfully deployed and tested |
 
-**Live application:**  
-https://uchecyril500-handwritten-digit-recognition-app-sjygo.streamlit.app/
+**Permanent live application URL:**
+
+https://handwritten-digit-recognition-3d1n.onrender.com
 
 ### Run the Application Locally
 
@@ -324,6 +326,7 @@ Draw a digit, click **Predict Digit**, and view the CNN prediction.
 │
 ├── app.py
 ├── requirements.txt
+├── .python-version
 ├── .gitignore
 └── README.md
 ```
@@ -332,7 +335,7 @@ Draw a digit, click **Predict Digit**, and view the CNN prediction.
 
 ### Prerequisites
 
-- Python installed.
+- Python 3.13 or a compatible Python version.
 - Git installed.
 - Internet connection for downloading the MNIST dataset and installing dependencies.
 
@@ -436,7 +439,7 @@ Through this project, I gained practical experience in:
 - Understanding the importance of input data quality.
 - Building an interactive machine learning application with Streamlit.
 - Integrating a trained model into a user-facing application.
-- Deploying a machine learning application using Streamlit Community Cloud.
+- Deploying a machine learning application using Render.
 - Using Git and GitHub for version control.
 
 ## 13. Conclusion
@@ -451,7 +454,7 @@ An important finding was that brightness enhancement significantly improved the 
 
 The project also demonstrates how a trained deep learning model can be integrated into an interactive application that allows users to test its predictions.
 
-Finally, deploying the application online made the project accessible beyond the local development environment.
+Finally, deploying the application on Render made the project accessible beyond the local development environment.
 
 Overall, this project provided practical experience across the machine learning workflow, from data preparation and model development to experimentation, evaluation, visualisation, application development, deployment, and version control.
 
@@ -467,11 +470,11 @@ Overall, this project provided practical experience across the machine learning 
 | Programming Language | Python |
 | Deep Learning Framework | PyTorch |
 | Application Framework | Streamlit |
-| Deployment Platform | Streamlit Community Cloud |
+| Deployment Platform | Render |
 | Models | FFNN and CNN |
 | Dataset | MNIST |
 | Developer | @uchecyril |
 | GitHub | [Handwritten Digit Recognition](https://github.com/uchecyril500/Handwritten-digit-recognition) |
-| Live Application | [Try the application](https://uchecyril500-handwritten-digit-recognition-app-sjygo.streamlit.app/) |
+| Live Application | [Try the application](https://handwritten-digit-recognition-3d1n.onrender.com) |
 
 **Built and Designed by [@uchecyril](https://github.com/uchecyril500)**
