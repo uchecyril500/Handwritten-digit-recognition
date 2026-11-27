@@ -4,6 +4,12 @@ An AI Engineering portfolio project that uses **PyTorch, Feedforward Neural Netw
 
 The project includes model training, evaluation, image preprocessing, model comparison, and an interactive web application built with Streamlit.
 
+<p align="center">
+
+  **[🚀 TRY THE LIVE APPLICATION](https://uchecyril500-handwritten-digit-recognition-app-sjygo.streamlit.app/)**
+
+</p>
+
 **Built and Designed by [@uchecyril](https://github.com/uchecyril500)**
 
 ---
@@ -23,7 +29,7 @@ In addition, personally handwritten digit images were used to investigate how we
 
 The project also includes an interactive Streamlit application where users can draw a digit and receive a prediction from the trained CNN.
 
-The main focus was to understand the machine learning workflow, from data preparation and model development to training, evaluation, experimentation, and deployment of an interactive application.
+The main focus was to understand the machine learning workflow, from data preparation and model development to training, evaluation, experimentation, application development, and deployment.
 
 ## 2. Technologies and Tools
 
@@ -39,6 +45,7 @@ The main focus was to understand the machine learning workflow, from data prepar
 | Streamlit | Interactive web application |
 | Streamlit Drawable Canvas | Handwriting input |
 | Git and GitHub | Version control and project hosting |
+| Streamlit Community Cloud | Application deployment |
 | VS Code | Development environment |
 
 ## 3. Dataset
@@ -72,11 +79,11 @@ The following transformations were applied to the training images:
 
 The official MNIST testing dataset was kept unchanged for evaluation.
 
-### 4.2 Personal Handwriting Preprocessing
+### 4.2 Personal Handwriting Preprocessing Experiment
 
-Additional preprocessing was implemented to prepare handwritten images for CNN prediction.
+Additional preprocessing was investigated to prepare personally handwritten images for CNN prediction.
 
-The steps include:
+The experimental preprocessing included:
 
 1. Conversion to grayscale.
 2. Background inversion when necessary.
@@ -88,7 +95,7 @@ The steps include:
 8. Brightness enhancement using a factor of 3.0.
 9. Conversion into a PyTorch tensor.
 
-### 4.3 Preprocessing Experiment
+### 4.3 Preprocessing Experiment Results
 
 During experimentation, the CNN initially achieved 80% accuracy on the ten personal handwriting images.
 
@@ -97,6 +104,8 @@ Further investigation showed that the processed images had relatively low pixel 
 Applying brightness enhancement significantly improved the predictions, resulting in 100% accuracy on the same ten images.
 
 This experiment demonstrated that image preprocessing can have a significant effect on machine learning predictions without changing the trained model architecture or weights.
+
+**Note:** The brightness-enhanced preprocessing described above belongs to the personal handwriting experiment. The current interactive Streamlit application uses a simpler preprocessing pipeline, including grayscale conversion, background inversion when necessary, cropping, resizing, placement on a 28 × 28 canvas, and centre-of-mass alignment. It does not apply the experimental stroke thickening or brightness enhancement.
 
 ## 5. Model Architectures
 
@@ -187,11 +196,20 @@ The FFNN incorrectly classified one handwritten digit, while the CNN correctly c
 
 ### 7.3 Interactive Application Testing
 
-The Streamlit application was also tested manually by drawing digits from 0 to 9 in different handwriting styles and sizes.
+The Streamlit application was tested manually using different handwritten digits, sizes, and drawing styles.
 
-In one recorded round of testing, all 11 prediction attempts were correct.
+Testing included:
 
-These manual demonstrations show that the application can recognise a range of user-drawn digits. They are separate from the formal MNIST evaluation and the ten-image personal handwriting experiment.
+- All ten digit classes, from 0 to 9.
+- Live predictions using the deployed application.
+- Display of the top three prediction probabilities.
+- Display of the processed image.
+- Clearing the drawing canvas.
+- Empty-canvas validation.
+
+The application correctly recognised the tested digit classes during the manual demonstrations.
+
+These manual demonstrations are separate from the formal MNIST evaluation and the ten-image personal handwriting experiment. They do not represent a formal accuracy benchmark.
 
 ## 8. Visual Model Comparison
 
@@ -204,6 +222,12 @@ The comparison demonstrates the improved performance of the CNN on the personal 
 ## 9. Interactive Streamlit Application
 
 A web-based application was developed using Streamlit to allow users to interact with the trained CNN model.
+
+### Try the Live Application
+
+**[🚀 Open Handwritten Digit Recognition](https://uchecyril500-handwritten-digit-recognition-app-sjygo.streamlit.app/)**
+
+The application is publicly accessible through Streamlit Community Cloud.
 
 ### Application Features
 
@@ -228,7 +252,24 @@ A web-based application was developed using Streamlit to allow users to interact
 
 The application uses the previously trained CNN model. It does not retrain the model every time a user makes a prediction.
 
-### Launch the Application
+### Application Deployment
+
+The application was deployed using **Streamlit Community Cloud**, connected directly to the GitHub repository.
+
+| Deployment Detail | Value |
+|---|---|
+| Hosting platform | Streamlit Community Cloud |
+| Source repository | GitHub |
+| Branch | main |
+| Main application file | app.py |
+| Framework | Streamlit |
+| Model | Trained CNN |
+| Deployment status | Successfully deployed |
+
+**Live application:**  
+https://uchecyril500-handwritten-digit-recognition-app-sjygo.streamlit.app/
+
+### Run the Application Locally
 
 Run the application using:
 
@@ -395,6 +436,7 @@ Through this project, I gained practical experience in:
 - Understanding the importance of input data quality.
 - Building an interactive machine learning application with Streamlit.
 - Integrating a trained model into a user-facing application.
+- Deploying a machine learning application using Streamlit Community Cloud.
 - Using Git and GitHub for version control.
 
 ## 13. Conclusion
@@ -409,7 +451,9 @@ An important finding was that brightness enhancement significantly improved the 
 
 The project also demonstrates how a trained deep learning model can be integrated into an interactive application that allows users to test its predictions.
 
-Overall, this project provided practical experience across the machine learning workflow, from data preparation and model development to experimentation, evaluation, visualisation, application development, and version control.
+Finally, deploying the application online made the project accessible beyond the local development environment.
+
+Overall, this project provided practical experience across the machine learning workflow, from data preparation and model development to experimentation, evaluation, visualisation, application development, deployment, and version control.
 
 ---
 
@@ -423,9 +467,11 @@ Overall, this project provided practical experience across the machine learning 
 | Programming Language | Python |
 | Deep Learning Framework | PyTorch |
 | Application Framework | Streamlit |
+| Deployment Platform | Streamlit Community Cloud |
 | Models | FFNN and CNN |
 | Dataset | MNIST |
 | Developer | @uchecyril |
 | GitHub | [Handwritten Digit Recognition](https://github.com/uchecyril500/Handwritten-digit-recognition) |
+| Live Application | [Try the application](https://uchecyril500-handwritten-digit-recognition-app-sjygo.streamlit.app/) |
 
 **Built and Designed by [@uchecyril](https://github.com/uchecyril500)**
