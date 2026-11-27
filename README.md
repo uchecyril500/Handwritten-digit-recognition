@@ -10,6 +10,12 @@ The project includes model training, evaluation, image preprocessing, model comp
 
 </p>
 
+## Live Application Preview
+
+![Handwritten Digit Recognition Application](results/app_screenshot.png)
+
+*The application correctly recognises a handwritten digit using the trained CNN model.*
+
 **Built and Designed by [@uchecyril](https://github.com/uchecyril500)**
 
 ---
